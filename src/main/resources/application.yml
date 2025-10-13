@@ -1,17 +1,26 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/movie_ticket_booking_system
-    username: root
+    url: jdbc:postgresql://postgres:5432/movie_ticket_booking_system
+    username: shiv
     password: password
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
 
   server:
     port: 8081
 
   jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
     show-sql: true
+    differ-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+      platform: postgres
 
   jackson:
     serialization:
@@ -32,5 +41,8 @@ management:
         include: "*"
         exclude: "env,beans"
   endpoints:
+    web:
+      exposure:
+        include: "*"
     loggers:
       enabled: true
